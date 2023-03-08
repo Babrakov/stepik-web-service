@@ -1,6 +1,7 @@
 package ru.infoza.servlets;
 
 import ru.infoza.accounts.AccountService;
+import ru.infoza.accounts.UserProfile;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,13 +20,25 @@ public class UsersServlet extends HttpServlet {
     //get public user profile
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws ServletException, IOException {
-        //todo: module 2 home work
+
     }
 
     //sign up
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException {
-        //todo: module 2 home work
+        String login = request.getParameter("login");
+        String pass = request.getParameter("password");
+
+        if (login == null || pass == null) {
+            response.setContentType("text/html;charset=utf-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        accountService.addNewUser(new UserProfile(login, pass, login));
+        response.setContentType("text/html;charset=utf-8");
+        response.getWriter().println("Registered!");
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     //change profile
