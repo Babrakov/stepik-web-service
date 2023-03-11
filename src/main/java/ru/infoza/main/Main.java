@@ -8,6 +8,7 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import ru.infoza.dbService.DBService;
 import ru.infoza.servlets.SessionsServlet;
 import ru.infoza.servlets.UsersServlet;
 
@@ -15,8 +16,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         AccountService accountService = new AccountService();
 
-        accountService.addNewUser(new UserProfile("admin"));
-        accountService.addNewUser(new UserProfile("test"));
+//        accountService.addNewUser(new UserProfile("admin"));
+//        accountService.addNewUser(new UserProfile("test"));
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(new UsersServlet(accountService)), "/signup");

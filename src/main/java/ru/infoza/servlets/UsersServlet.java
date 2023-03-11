@@ -2,6 +2,7 @@ package ru.infoza.servlets;
 
 import ru.infoza.accounts.AccountService;
 import ru.infoza.accounts.UserProfile;
+import ru.infoza.dbService.DBException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +36,11 @@ public class UsersServlet extends HttpServlet {
             return;
         }
 
-        accountService.addNewUser(new UserProfile(login, pass, login));
+        try {
+            accountService.addNewUser(new UserProfile(login, pass, login));
+        } catch (DBException e) {
+            throw new RuntimeException(e);
+        }
         response.setContentType("text/html;charset=utf-8");
         response.getWriter().println("Registered!");
         response.setStatus(HttpServletResponse.SC_OK);
